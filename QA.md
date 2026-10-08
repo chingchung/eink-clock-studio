@@ -36,3 +36,9 @@ The implementation separates artwork, SVG widgets and top-layer hands. Countdown
 ## Known prototype limits
 
 Freehand drawing requires a pointer and has no keyboard drawing equivalent. Browser storage is device-local; no cross-device settings/artwork sync or export is implemented. Corrupted manually edited localStorage and simultaneous multi-pointer drawing need additional robustness review. Image-size checks after decode cannot prevent all decoding memory pressure. Actual hardware fidelity and refresh behavior are not evaluated.
+
+## Saved-image restoration race regression
+
+A startup image restore could previously overwrite removed/replaced artwork, or clear a newer image on an old load error. The restore now captures both uploadVersion and saved image source and checks both before either callback mutates state.
+
+PASS: all eight source-extracted callback checks ran in the available V8 tool isolate with a stub Image and controlled callback delivery: current success/error, removed success/error, new-upload-pending success/error, and source-changed success/error. The original source fails the removed-onload regression; the patched source passes all eight. Full app.js syntax compilation also passed. The test is saved as tests/restore-image.test.cjs and can be rerun with `node tests/restore-image.test.cjs` when Node is available. Node itself was not run here. These are callback logic checks, not real browser/image decoding tests; browser QA remains unexecuted.

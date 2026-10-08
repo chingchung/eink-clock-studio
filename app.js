@@ -58,5 +58,12 @@
  function loginText(){$('login').textContent=state.signedIn?'Kenny · demo · sign out':'Sign in · demo';}$('login').onclick=()=>{state.signedIn=!state.signedIn;loginText();save();toast(state.signedIn?'Demo session started. No account or credentials used.':'Demo session ended.');};
  $('apply').onclick=()=>{toast('Simulated apply complete — '+state.face+' face. No hardware was contacted.');};
  loginText();settings();render();setInterval(render,60000);setInterval(updateHands,1000);
- if(typeof state.image==='string'&&state.image.startsWith('data:image/')){const img=new Image();img.onload=()=>{artwork=img;render();};img.onerror=()=>{state.image=null;toast('Saved artwork could not be loaded. Please upload it again.');};img.src=state.image;}
+ // A pending restore must not overwrite artwork removed or replaced after startup.
+ if(typeof state.image==='string'&&state.image.startsWith('data:image/')){
+  const version=uploadVersion, savedImage=state.image, img=new Image();
+  const isCurrent=()=>version===uploadVersion&&state.image===savedImage;
+  img.onload=()=>{if(!isCurrent())return;artwork=img;render();};
+  img.onerror=()=>{if(!isCurrent())return;state.image=null;toast('Saved artwork could not be loaded. Please upload it again.');};
+  img.src=savedImage;
+ }
 })();
