@@ -1,11 +1,10 @@
-# Roadmap / workstation handoff
+# Roadmap
 
-1. Restore local shell/browser access or clone on the company Mac. Run the QA matrix and fix observed issues. Capture desktop/mobile screenshots through supported browser artifact tools.
-2. Maintain the private GitHub repository as the workstation handoff. Source upload uses the authenticated GitHub connector because the Windows shell could not start. Public deployment and credential creation remain outside scope.
-3. Add portable import/export of editable face settings and a hardware-ready monochrome image export, excluding physical hands. Add explicit storage management and per-face widget presets.
-4. Validate design with actual display dimensions and mechanical clearances. Add image dithering and physical display simulation only after selecting panel requirements.
-5. After explicit integration approval, design authentication, least-privilege calendar access, weather source/location consent, device pairing and secure transport. Replace demo controls gradually with visible connection and error states.
+1. Review the six-face collection with the user and refine the strongest directions using individual reference pins.
+2. Expand face and widget designs within the focused editor; avoid restoring removed product features without a user request.
+3. Validate dial typography, hand occlusion and widget readability against actual display dimensions.
+4. Consider per-face compositions and monochrome export after the core designs are approved. Export must exclude the physical-hand overlay.
 
 ## Architecture
 
-Single plain-JavaScript app with central serializable state, face-specific editor mounting, canvas image/drawing layer, SVG widget/sector layer, and CSS physical-hand overlay. localStorage uses key `still-studio-v1`. No backend or build tools. Future changes should split modules if complexity warrants it; preserve direct static preview or document a replacement run path.
+Buildless HTML/CSS/JavaScript. SVG face and widget generation, CSS physical hands, validated serializable settings in localStorage under still-faces-v2. Older still-studio-v1 data is left untouched. No backend, telemetry, external fonts or dependencies. GitHub remains the cross-workstation source of truth.

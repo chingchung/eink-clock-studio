@@ -1,30 +1,15 @@
-# eink-clock-studio
+# Still — Faces & Widgets
 
-## Still — E-ink Clock Studio
+A dependency-free clock-face studio for a round monochrome e-ink display with separate physical hands.
 
-A dependency-free companion editor prototype for a round monochrome e-ink display with physical analog hands.
+Open index.html directly, or serve this folder with any static HTTP server. No build or installation is required. For consistent browser storage, use an HTTP server.
 
-### Run on Windows or Mac
+## Collection 001
 
-Download this private repository with GitHub's Code → Download ZIP and extract it, or clone it using your existing GitHub authentication. Open `index.html` in a modern browser. No installation, build, account, or internet access is required.
+Six faces: Everyday, Grotesk, Orbit, Petal, Roman, and Radial. Each shares two independent widget slots with None, Date, Digital time (24-hour), Week rhythm (Monday first), or Personal note. Both note slots use the same editable message, up to 24 characters. Time and date follow the viewer's device.
 
-For stable browser storage, optionally run `python -m http.server 8000` (Windows) or `python3 -m http.server 8000` (Mac) from this folder, then open `http://localhost:8000` **on that same computer**. This is not a remotely accessible preview. Local file storage behavior varies by browser; the app reports storage failures.
+The October 2026 redesign focuses only on faces and widgets. Account simulation, device apply, drawing, uploads, weather, agenda, and countdown tools have been removed. The visible portion of the user's Pinterest clock board informed typography and geometric directions; the full board was obscured by a sign-in overlay. Designs are original interpretations.
 
-### Included
+Settings persist locally under still-faces-v2. Previous still-studio-v1 artwork is left untouched but is not read or displayed. No network integrations or hardware connection. The physical hands in the preview sit above all face artwork; they are not part of the e-ink layer.
 
-- Quiet: local date and demo weather.
-- Agenda: explicit AM/PM 12-hour windows, sample event sectors including 2–3 PM.
-- Countdown: calendar days remaining, editable target/name, elapsed progress ring. Past targets clamp to zero. Date arithmetic uses UTC day indices of local calendar dates to avoid daylight-saving hour errors.
-- Canvas: validated PNG/JPEG/WebP uploads (8 MB maximum), center crop, monochrome threshold/invert, remove image, pointer drawing, undo and clear.
-- Independent marker/date/weather toggles; browser-local persistence; physical hand overlay above all artwork.
-- Clearly labeled demo sign-in and simulated apply; no credentials, API integrations, telemetry or network calls.
-
-### Continue on another workstation
-
-Clone this private repository, read `AGENTS.md`, `PRODUCT_BRIEF.md`, `ROADMAP.md`, and `QA.md`, and open `index.html`. Browser-local artwork/settings do not sync across machines. Git transfers source only.
-
-Files: `index.html` structure, `style.css` responsive presentation, `app.js` state/rendering/interactions. No package manager or dependencies.
-
-### Validation status
-
-Source was recovered from the originating task's known patch content and uploaded through the authenticated GitHub connector. It was not read back from the Windows filesystem, whose execution helper remained unavailable even after restart. JavaScript syntax compilation passed in a V8 isolate; browser rendering, interaction and device tests remain pending. See `QA.md`. No public site is deployed.
+Run `node --check app.js` and `node tests/state.test.cjs`. See QA.md for actual browser validation and remaining limits.
