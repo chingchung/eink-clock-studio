@@ -9,3 +9,5 @@ No accounts, integrations, device apply, calendar management, countdown, uploads
 Success: switch faces instantly, independently choose or remove both widgets, edit a short note, and return to the same composition after reload. Usable on desktop and mobile with native keyboard controls.
 
 Hardware dimensions, bezel clearance, panel resolution and refresh behavior remain unverified. The browser is a visual prototype.
+
+The user-requested schedule demo uses one filled 2–6 PM sector on the 12-hour dial, with unfilled free hours and dashed radial dividers. It is a full-dial widget toggled independently of the face, with a fixed sample event and no calendar integration.
