@@ -13,3 +13,11 @@ get=boot(JSON.stringify({upper:'week',lower:'none'}),'2026-10-12T00:00:00');asse
 get=boot(JSON.stringify({upper:'note',note:'<svg onload=alert(1)>'}),'2026-10-11T12:00:00');assert.match(get('dial').innerHTML,/&lt;svg/);assert.doesNotMatch(get('dial').innerHTML,/<svg onload/);
 get=boot(null,'2026-10-11T12:00:00',true);assert.match(get('storage').textContent,/unavailable/);assert.equal(get('face-title').textContent,'Everyday');
 console.log('PASS: invalid storage, invalid selections, year rollover, leap day, Monday week indicator, text escaping, unavailable storage.');
+for(const [face,title,index] of [['equation','Equation',7],['tumble','Tumble',8],['cutout','Cutout',9],['now','Now',10]]){
+ get=boot(JSON.stringify({face,upper:'week',lower:'date'}),'2027-01-01T00:00:00');
+ assert.equal(get('face-title').textContent,title);
+ assert.equal(get('face-number').textContent,`${String(index).padStart(2,'0')} / 10`);
+ assert.match(get('dial').innerHTML,/JAN 1/);
+ assert.doesNotMatch(get('dial').innerHTML,/undefined|NaN/);
+}
+console.log('PASS: all four new face IDs restore with widgets and correct collection numbering.');
