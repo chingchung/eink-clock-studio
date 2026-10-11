@@ -1,5 +1,15 @@
 # Validation — face and widget studio
 
+## Reference-inspired faces — 2026-10-11
+
+- Added Equation, Tumble, Cutout, and Now; collection now contains ten faces. Equation expressions checked against hours 1–12, using degrees and base-10 logarithm.
+- JavaScript syntax and Node state/date harness passed, including restoring each new face with widgets and correct 07–10 / 10 numbering. Existing year rollover, leap day, Monday indicator, escaping, invalid settings and unavailable-storage cases passed.
+- Codex in-app browser: three rounds through all ten faces (30 switches), asserting the selected title after every switch. All five options exercised in both widget slots.
+- Reload preserved Now, upper Week rhythm, lower Personal note, and edited text. Keyboard Enter selected Tumble; the focused face button had a visible solid outline.
+- Visually inspected all four new faces. At 375 × 812, inspected full-page Now layout with both widgets; document width 360px, no horizontal overflow. Reset viewport after testing.
+- Browser error/warning logs empty after interactions and final preview. Saved full-page Equation preview locally. No reference images included in the repository.
+- Hardware fidelity and physical display readability remain unverified. Date boundaries are tested by the Node harness, not by changing the browser clock.
+
 Validated on 2026-10-11 using Node 24 and the Codex in-app browser.
 
 ## Passed
