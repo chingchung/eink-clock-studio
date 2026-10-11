@@ -31,3 +31,9 @@ Uploads, drawing, account, apply, weather, agenda and countdown were removed at 
 No real hardware, panel fidelity or refresh cadence validation. No full assistive-technology audit. Blocked-storage and date-boundary checks ran under a VM test harness, not through browser settings or clock changes. The full Pinterest board was obscured by a login overlay; only visible references informed the initial collection.
 
 Work is delivered on a feature branch for review, not publicly deployed.
+
+## Corrected schedule demo — 2026-10-11
+
+- PASS: syntax, existing state/date/face tests, and new schedule checks (one sector, 60°–180° mapping, nine free/boundary dividers, no internal dividers at 3/4/5, toggle restores compact controls).
+- PASS in browser: enabled schedule, switched through all ten faces, reloaded with schedule retained, disabled it and observed previous slot choices return. Final Everyday preview visually inspected. No console errors or warnings.
+- The event is fixed sample data (2–6 PM), not an editable event/calendar integration. Physical hands remain above the sector. Schedule-only responsive regression was not independently completed; existing responsive layout is retained.

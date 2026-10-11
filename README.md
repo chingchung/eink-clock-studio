@@ -15,3 +15,7 @@ The October 2026 redesign focuses only on faces and widgets. Account simulation,
 Settings persist locally under still-faces-v2. Previous still-studio-v1 artwork is left untouched but is not read or displayed. No network integrations or hardware connection. The physical hands in the preview sit above all face artwork; they are not part of the e-ink layer.
 
 Run `node --check app.js` and `node tests/state.test.cjs`. See QA.md for actual browser validation and remaining limits.
+
+## Day schedule demo
+
+Enable **Day schedule · demo** under Widgets. A single rounded black pie sector spans 2–6 PM clockwise on the normal 12-hour dial. Other hours stay unfilled with dashed radial dividers. This is a fixed sample event, not a calendar connection or editable event manager. The schedule occupies the dial interior; upper/lower widgets are temporarily hidden and return unchanged when it is switched off. The toggle persists locally. All ten clock faces remain available.

@@ -21,3 +21,12 @@ for(const [face,title,index] of [['equation','Equation',7],['tumble','Tumble',8]
  assert.doesNotMatch(get('dial').innerHTML,/undefined|NaN/);
 }
 console.log('PASS: all four new face IDs restore with widgets and correct collection numbering.');
+
+get=boot(JSON.stringify({schedule:true}),'2026-10-11T14:00:00');
+assert.match(get('dial').innerHTML,/data-start-angle="60" data-end-angle="180"/);
+assert.equal((get('dial').innerHTML.match(/id="schedule-event"/g)||[]).length,1);
+assert.equal((get('dial').innerHTML.match(/data-free-hour=/g)||[]).length,9);
+for(const hour of [3,4,5])assert.doesNotMatch(get('dial').innerHTML,new RegExp('data-free-hour="'+hour+'"'));
+assert.equal(get('small-widgets').hidden,true);
+get=boot(JSON.stringify({schedule:false}),'2026-10-11T14:00:00');assert.doesNotMatch(get('dial').innerHTML,/schedule-event/);assert.equal(get('small-widgets').hidden,false);
+console.log('PASS: one 2–6 PM sector, free-hour dividers only, toggle restoration.');
