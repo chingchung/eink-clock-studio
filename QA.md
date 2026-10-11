@@ -1,44 +1,23 @@
-# Validation status
+# Validation — face and widget studio
 
-## Source provenance and checks
+Validated on 2026-10-11 using Node 24 and the Codex in-app browser.
 
-The initial HTML/CSS/JS and documentation were recovered from the known source patches in the originating task's history. They were not independently read from the Windows filesystem. The original repository contained only the heading "# eink-clock-studio"; that heading is preserved.
+## Passed
 
-- PASS: recovered app.js compiled with V8's Function constructor in the tool orchestration isolate without syntax errors. This parses JavaScript only; it does not execute the app or validate browser behavior.
-- Remote persistence verification: the delivery task reads the committed files back and compares their complete content with the submitted source, then checks the main branch head. The final delivery report carries the exact observed commit SHA and comparison results.
-- NOT RUN: browser rendering, DOM execution, interaction, upload, persistence, responsive, accessibility and hardware tests.
-- No screenshot or running hosted preview has been produced. No public deployment.
+- JavaScript syntax: node --check app.js.
+- Node state/date checks: invalid JSON, unknown face/widget IDs, year rollover, leap day, Monday week indicator, note escaping and unavailable storage. These use a lightweight DOM stub, not a browser.
+- Real browser: ten complete rounds through all six faces (60 switches), followed by successful widget editing.
+- All five choices selected in each widget slot; personal-note editor appears when needed and hides otherwise.
+- Reload preserved Radial face, Week rhythm upper slot, Personal note lower slot and edited note text.
+- Markup-like note text rendered literally in the SVG; keyboard Enter activated a face. Visible focus ring verified on note input.
+- Desktop visual inspection and 375px mobile viewport: stacked layout, usable controls, no horizontal overflow (document scroll width 360 <= viewport 375). Full-page mobile and desktop screenshots inspected.
+- Browser error/warning log empty after interaction checks and after final reload.
+- Final short-note sizing adjustment reloaded and visually checked. Git diff whitespace check passed.
 
-## Execution environment observations
+## Scope and limits
 
-Windows PowerShell failed before process creation: exec-server `helper_unknown_error: setup refresh had errors`. Non-login and PTY retries failed identically. After the user restarted the desktop app, a fresh basic command still failed. Selecting CMD was rejected because this execution environment only supports PowerShell. No app terminal was attached.
+Uploads, drawing, account, apply, weather, agenda and countdown were removed at the user's request; their previous checks and image-restore regression test are obsolete. Existing v1 local data is preserved but unused.
 
-Browser/computer inventory returned `apps: []`, `browsers: []`; Edge was unavailable. Local dependency access reported local-thread support unavailable. Workspace patches returned empty result objects and could not be independently read back. Library batch preservation required the unavailable local runtime. No permissions, authentication or sandbox settings were changed.
+No real hardware, panel fidelity or refresh cadence validation. No full assistive-technology audit. Blocked-storage and date-boundary checks ran under a VM test harness, not through browser settings or clock changes. The full Pinterest board was obscured by a login overlay; only visible references informed the initial collection.
 
-Official general recovery guidance: https://learn.chatgpt.com/docs/reference/troubleshooting recommends reopening a stuck terminal and restarting after active chats finish. https://learn.chatgpt.com/docs/windows/windows-sandbox documents restart when sandboxing stops working. This does not guarantee a fix for the observed helper error; restart did not resolve it here.
-
-## Static review only
-
-The implementation separates artwork, SVG widgets and top-layer hands. Countdown uses integer calendar-day arithmetic. Upload type/size/decode are checked; async uploads carry a version so removal supersedes a pending upload. DOM editor fields are mounted fresh per face; saved controls are rebound. User title is escaped before SVG insertion. Storage errors are reported. This review does not constitute runtime validation.
-
-## Required browser checks (all unexecuted)
-
-- Load without console errors; verify local time, physical-hand position and demo labels.
-- Switch each face at least ten times; change controls after each switch.
-- Agenda PM: 2–3 PM sector spans 60°–90° clockwise from top; switch AM and verify all labels/events update.
-- Countdown: tomorrow=1, today/past=0; future ring starts empty and advances with calendar date; test leap day/DST and invalid/empty date.
-- Canvas: valid PNG/JPEG/WebP, transparent PNG, unsupported text, corrupt image, >8 MB and extreme dimensions; threshold extremes/inversion, remove image during decode and after reload.
-- Draw with mouse/touch; undo/clear; pointer cancel; switch while drawing; verify hands remain above drawing.
-- Toggle all widgets and reload every face; verify image/strokes persist. Test disabled/full storage warnings.
-- Simulated apply and sign-in accurately announce demo behavior.
-- Inspect 1440, 1024, 768 and 375 px layouts; keyboard-only focus, screen-reader labels and contrast; capture screenshots.
-
-## Known prototype limits
-
-Freehand drawing requires a pointer and has no keyboard drawing equivalent. Browser storage is device-local; no cross-device settings/artwork sync or export is implemented. Corrupted manually edited localStorage and simultaneous multi-pointer drawing need additional robustness review. Image-size checks after decode cannot prevent all decoding memory pressure. Actual hardware fidelity and refresh behavior are not evaluated.
-
-## Saved-image restoration race regression
-
-A startup image restore could previously overwrite removed/replaced artwork, or clear a newer image on an old load error. The restore now captures both uploadVersion and saved image source and checks both before either callback mutates state.
-
-PASS: all eight source-extracted callback checks ran in the available V8 tool isolate with a stub Image and controlled callback delivery: current success/error, removed success/error, new-upload-pending success/error, and source-changed success/error. The original source fails the removed-onload regression; the patched source passes all eight. Full app.js syntax compilation also passed. The test is saved as tests/restore-image.test.cjs and can be rerun with `node tests/restore-image.test.cjs` when Node is available. Node itself was not run here. These are callback logic checks, not real browser/image decoding tests; browser QA remains unexecuted.
+Work is delivered on a feature branch for review, not publicly deployed.
